@@ -3,47 +3,30 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *'  # Run daily at 3 AM UTC (different from main workflow)
+    - cron: '0 3 * * *'  # Run daily at 3 AM UTC
 
 jobs:
-  backfill-2024-weekdays:
+  backfill-2024:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-    - name: Backfill 2024 weekday commits
+    - name: Backfill 2024 commits
       uses: bcanseco/github-contribution-graph-action@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_EMAIL: emmanuelcuyugan@gmail.com
         MAX_DAYS: 366  # 2024 is a leap year
-        ORIGIN_TIMESTAMP: "2024-01-01T00:00:00Z"  # Start of 2024
-        MIN_COMMITS_PER_DAY: 0
-        MAX_COMMITS_PER_DAY: 1
-        INCLUDE_WEEKENDS: false
-        INCLUDE_WEEKDAYS: true
-        GIT_COMMIT_MESSAGE: "chore: 2024 weekday contribution"
-    
-  backfill-2024-weekends:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-    - name: Backfill 2024 weekend commits
-      uses: bcanseco/github-contribution-graph-action@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GIT_EMAIL: emmanuelcuyugan@gmail.com
-        MAX_DAYS: 366  # 2024 is a leap year
-        ORIGIN_TIMESTAMP: "2024-01-01T00:00:00Z"  # Start of 2024
         MIN_COMMITS_PER_DAY: 0
         MAX_COMMITS_PER_DAY: 1
         INCLUDE_WEEKENDS: true
-        INCLUDE_WEEKDAYS: false
-        GIT_COMMIT_MESSAGE: "chore: 2024 weekend contribution"
+        INCLUDE_WEEKDAYS: true
+        GIT_COMMIT_MESSAGE: "chore: 2024 contribution"
+        # Set the start date to 2024
+        START_DATE: "2024-01-01"
     
   verify-2024-commits:
-    needs: [backfill-2024-weekdays, backfill-2024-weekends]
+    needs: [backfill-2024]
     runs-on: ubuntu-latest
     steps:
     - name: Verify 2024 commits
