@@ -22,8 +22,8 @@ jobs:
         INCLUDE_WEEKENDS: true
         INCLUDE_WEEKDAYS: true
         GIT_COMMIT_MESSAGE: "chore: 2024 contribution"
-        # Set the start date to 2024
-        START_DATE: "2024-01-01"
+        # Use ORIGIN_TIMESTAMP to target 2024 specifically (July 1, 2024)
+        ORIGIN_TIMESTAMP: "1719792000"  # Unix timestamp for 2024-07-01 00:00:00 UTC
     
   verify-2024-commits:
     needs: [backfill-2024]
