@@ -1,0 +1,29 @@
+# .github/workflows/main.yml.disabled
+
+# This workflow is disabled to prevent double-filling 2025
+# Only backfill-2024.yml is active
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'  # Run daily at 2 AM UTC
+  push:
+
+jobs:
+  # This job is commented out to disable the workflow
+  # backfill-weekdays:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   steps:
+  #   - name: Backfill weekday commits
+  #     uses: bcanseco/github-contribution-graph-action@v2
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       GIT_EMAIL: emmanuelcuyugan@gmail.com
+  #       MAX_DAYS: 365
+  #       MIN_COMMITS_PER_DAY: 1
+  #       MAX_COMMITS_PER_DAY: 5
+  #       INCLUDE_WEEKENDS: false
+  #       INCLUDE_WEEKDAYS: true
+  #       GIT_COMMIT_MESSAGE: "chore: weekday contribution"
